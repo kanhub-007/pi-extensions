@@ -1,0 +1,9 @@
+{
+  "name": "pi-extensions",
+  "version": "1.0.0",
+  "description": "Pi extensions: review commands, TDD driver, spec writer, and safety guards",
+  "keywords": ["pi-package"],
+  "pi": {
+    "extensions": ["./extensions"]
+  }
+}

@@ -1,6 +1,18 @@
 # Pi Extensions
 
-Extensions located in `~/.pi/agent/extensions/`. Loaded automatically by pi on startup.
+A curated collection of pi extensions: review commands, TDD driver, spec writer, and safety guards.
+
+## Install
+
+```bash
+pi install git:github.com/kanhub-007/pi-extensions
+```
+
+Or for a one-off trial without installing:
+
+```bash
+pi -e git:github.com/kanhub-007/pi-extensions
+```
 
 ---
 
