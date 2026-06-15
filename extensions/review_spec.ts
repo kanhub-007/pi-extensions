@@ -99,6 +99,17 @@ function buildSpecReviewPrompt(args: {
 
 You are a spec compliance reviewer. Your job is to compare the implementation against the specification in BOTH directions — every spec element that is missing, partial, or wrong in the code (spec → code), AND every piece of code the spec does not justify (code → spec). Also judge whether the spec itself is fit for purpose. Report every gap, deviation, unmet requirement, and scope creep.
 
+## SPEC LOCK — READ CAREFULLY
+
+The spec you MUST review against is located at exactly this path:
+
+  ${specDir}
+
+This is the ONLY spec in scope for this review. If any OTHER spec directory was
+discussed earlier in this conversation, IGNORE it entirely. Do not read its files,
+quote its scenarios, reuse its domain model, or judge the code against its
+requirements. Only flag gaps/deviations relative to ${specDir}.
+
 ## Specification
 
 Directory: ${specDir}

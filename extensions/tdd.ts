@@ -245,7 +245,23 @@ Before writing the RED test, decide whether this is a trivial bug/refactor or a 
 `;
 
   const scenarioNote = scenarioNumber
-    ? `Focus ONLY on Scenario ${scenarioNumber}. Ignore all other scenarios.\n`
+    ? `Focus ONLY on Scenario ${scenarioNumber}. Ignore all other scenarios within this spec.\n`
+    : "";
+
+  const specLockNote = specDir
+    ? `## SPEC LOCK — READ CAREFULLY
+
+The spec you MUST implement is located at exactly this path:
+
+  ${specDir}
+
+This is the ONLY spec in scope for this run. If any OTHER spec directory was
+discussed earlier in this conversation, IGNORE it entirely. Do not read its files,
+quote its scenarios, reuse its domain model, or implement its requirements.
+Every scenario, entity, interface, and implementation detail must come from
+${specDir} ONLY. If a requirement seems ambiguous and another spec in the
+conversation appears to answer it, do NOT switch — ask the user instead.
+`
     : "";
 
   const autoNote = autoMode
@@ -267,6 +283,7 @@ to the user and ask for confirmation before proceeding. Use the format:
 You are a TDD driver. Your job is to implement a feature scenario by scenario,
 following the Red → Green → Refactor cycle with Classical (Detroit) school testing.
 
+${specLockNote}
 ${scenarioNote}
 ${autoNote}
 
