@@ -1,6 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { isAbsolute, join } from "node:path";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────
 
@@ -26,7 +26,7 @@ function parseScenarioDetails(content: string): Array<{
     const line = lines[i];
 
     // Detect scenario start
-    const scenarioMatch = line.match(/^### Scenario:\s*(.+)$/i);
+    const scenarioMatch = line.match(/^### Scenario[^:]*:\s*(.+)$/i);
     if (scenarioMatch) {
       if (inScenario) {
         // Previous scenario had no explicit slice — default to 1
@@ -136,7 +136,8 @@ function looksLikePath(s: string, cwd: string): boolean {
 function resolveSpecTarget(target: string, cwd: string): { specDir: string; adHoc: false } | { adHoc: true; description: string } {
   // 1. Try direct path (if target looks like a filesystem path)
   if (looksLikePath(target, cwd)) {
-    let resolved = join(cwd, target);
+    // Use target directly if it's an absolute path (handles Windows C:/... or C:\... paths)
+    let resolved = isAbsolute(target) ? target : join(cwd, target);
     if (existsSync(resolved)) {
       if (statSync(resolved).isDirectory() && existsSync(join(resolved, "02-scenarios.md"))) {
         return { specDir: resolved, adHoc: false };
